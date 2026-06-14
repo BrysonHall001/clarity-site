@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clarity — Never miss another customer call</title>
+<meta name="description" content="Clarity is an AI receptionist that answers the calls you can't — captures the lead, and logs it in a full CRM. A Vaala product." />
+
+<!-- SOCIAL PREVIEW (what shows when the link is shared) -->
+<meta property="og:title" content="Clarity — Never miss another customer call" />
+<meta property="og:description" content="An AI receptionist that answers when you can't, captures the lead, and logs it in a full CRM." />
+<meta property="og:type" content="website" />
+
+<link rel="icon" type="image/svg+xml" href="assets/clarity-icon.svg" />
+
+<!-- Fonts: Space Grotesk (headlines), Inter (body), Space Mono (techy labels) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ================================================================
+   CLARITY — marketing site styles
+   Brand tokens live here. Change a color in one place, it updates
+   everywhere.
+   ================================================================ */
+:root{
+  --purple:#4F4DCA;        /* primary brand purple */
+  --purple-deep:#3A38A8;   /* button hover / darker */
+  --purple-soft:#8B89F0;   /* light accent */
+  --navy:#211E5C;          /* headlines */
+  --navy-ink:#16143D;      /* deepest navy (dark sections / hero / footer) */
+  --ink:#1F1D33;           /* primary body text */
+  --gray:#6B7280;          /* secondary text */
+  --bg:#FFFFFF;
+  --bg-soft:#F5F5FB;       /* light lavender section background */
+  --line:#E7E7F2;          /* hairlines / borders */
+  --radius:18px;
+  --shadow-sm:0 2px 10px rgba(33,30,92,.06);
+  --shadow-md:0 18px 50px rgba(33,30,92,.12);
+  --shadow-lg:0 40px 90px rgba(33,30,92,.18);
+  --maxw:1140px;
+  --font-display:"Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body:"Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:"Space Mono", ui-monospace, monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--font-display);color:var(--navy);line-height:1.08;letter-spacing:-.02em;margin:0;}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+/* ---- shared section rhythm ---- */
+.section{padding:110px 0;}
+.section--soft{background:var(--bg-soft);}
+.section--dark{background:var(--navy-ink);color:#EDEBFF;}
+.section--dark h2{color:#fff;}
+
+.eyebrow{
+  display:inline-block;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--purple);
+  margin-bottom:18px;
+}
+.section--dark .eyebrow{color:var(--purple-soft);}
+
+.lead{font-size:19px;color:var(--gray);max-width:620px;}
+.section--dark .lead{color:#BCB9E6;}
+
+/* ===========================  HEADER  =========================== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:18px 0;transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+}
+header.scrolled{
+  background:rgba(255,255,255,.86);backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 var(--line);padding:12px 0;
+}
+.nav{display:flex;align-items:center;justify-content:space-between;}
+.nav__logo{height:34px;width:auto;display:block;}
+.nav__logo--dark{display:none;}           /* purple logo, shown once scrolled onto light */
+header.scrolled .nav__logo--light{display:none;}
+header.scrolled .nav__logo--dark{display:block;}
+.nav__cta{
+  /* The header CTA button. Log-in link is left off for now per your note.
+     To add a "Log in" button later, uncomment the <a> in the HTML below. */
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--purple);color:#fff;font-weight:600;font-size:15px;
+  padding:11px 20px;border-radius:999px;transition:background .2s, transform .2s;
+}
+.nav__cta:hover{background:var(--purple-deep);transform:translateY(-1px);}
+
+/* ===========================  BUTTONS  ========================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--font-body);font-weight:600;font-size:17px;cursor:pointer;
+  padding:16px 30px;border-radius:999px;border:0;transition:transform .2s, background .2s, box-shadow .2s;
+}
+.btn--primary{background:var(--purple);color:#fff;box-shadow:0 10px 30px rgba(79,77,202,.35);}
+.btn--primary:hover{background:var(--purple-deep);transform:translateY(-2px);box-shadow:0 16px 40px rgba(79,77,202,.45);}
+.btn--ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line);}
+.btn--ghost:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px);}
+.btn--ghost-dark{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(4px);}
+.btn--ghost-dark:hover{background:rgba(255,255,255,.14);transform:translateY(-2px);}
+
+/* =====================  HERO (3D sound field)  ================= */
+.hero{position:relative;height:100vh;min-height:640px;background:var(--navy-ink);color:#EDEBFF;overflow:hidden;}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.hero.nowebgl #scene{display:none;}
+.hero__fallback{position:absolute;inset:0;display:none;
+  background:radial-gradient(120% 90% at 50% 120%, rgba(79,77,202,.55), transparent 60%),
+             radial-gradient(80% 60% at 80% 0%, rgba(139,137,240,.25), transparent 60%), var(--navy-ink);}
+.hero.nowebgl .hero__fallback{display:block;}
+.hero__veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom, rgba(22,20,61,.97) 0%, rgba(22,20,61,.92) 38%, rgba(22,20,61,.5) 60%, rgba(22,20,61,0) 80%, rgba(22,20,61,.5) 100%);}
+.hero__inner{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;text-align:center;padding:19vh 24px 0;pointer-events:none;}
+.hero__inner a,.hero__inner button{pointer-events:auto;}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:12.5px;
+  letter-spacing:.04em;text-transform:uppercase;color:#C9C7FB;background:rgba(79,77,202,.22);
+  border:1px solid rgba(139,137,240,.3);padding:7px 15px;border-radius:999px;margin-bottom:26px;backdrop-filter:blur(4px);
+}
+.hero__badge .dot{width:8px;height:8px;border-radius:50%;background:var(--purple-soft);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(139,137,240,.45);}70%{box-shadow:0 0 0 10px rgba(139,137,240,0);}100%{box-shadow:0 0 0 0 rgba(139,137,240,0);}}
+/* ===== EDIT YOUR HEADLINE HERE (in the HTML further down) ===== */
+.hero h1{font-size:clamp(40px,6.6vw,78px);font-weight:700;color:#fff;max-width:14ch;margin:0 auto 22px;line-height:1.04;text-shadow:0 4px 40px rgba(0,0,0,.45);}
+.hero h1 .accent{color:#B9B7FF;}
+.hero__sub{font-size:clamp(17px,2vw,21px);color:#C6C4EE;max-width:40ch;margin:0 auto 34px;}
+.hero__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* thesis strip bridging the dark hero into the page */
+.thesis{background:var(--navy-ink);color:#EDEBFF;padding:0 0 100px;}
+.thesis .wrap{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;border-top:1px solid rgba(255,255,255,.1);padding-top:50px;}
+.thesis .tlabel{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple-soft);white-space:nowrap;}
+.thesis p{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,2.6vw,32px);line-height:1.34;letter-spacing:-.015em;color:#DAD8F5;max-width:32ch;}
+.thesis p b{color:#fff;}
+
+/* ===========================  PROBLEM  ========================= */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px;}
+.scenario{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);}
+.scenario h3{font-size:20px;margin-bottom:10px;}
+.scenario p{color:var(--gray);font-size:15.5px;}
+.scenario .tag{display:block;font-family:var(--font-mono);font-size:12px;color:var(--purple);margin-bottom:14px;letter-spacing:.06em;}
+.cost-line{margin-top:50px;text-align:center;font-family:var(--font-display);font-size:clamp(22px,3.4vw,34px);color:var(--navy);font-weight:600;line-height:1.3;max-width:760px;margin-left:auto;margin-right:auto;}
+.cost-line b{color:var(--purple);}
+
+/* =========================  HOW IT WORKS  ===================== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.step{position:relative;padding:34px 28px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+.step__num{font-family:var(--font-mono);font-size:13px;color:var(--purple);letter-spacing:.12em;}
+.step__icon{width:52px;height:52px;border-radius:14px;background:#ECECFB;display:flex;align-items:center;justify-content:center;margin:16px 0 18px;}
+.step__icon svg{width:26px;height:26px;stroke:var(--purple);}
+.step h3{font-size:21px;margin-bottom:10px;}
+.step p{color:var(--gray);font-size:15.5px;}
+
+/* ============================  DEMO  ========================== */
+.demo-card{max-width:980px;margin:56px auto 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-lg);overflow:hidden;}
+.demo-top{display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line);background:#fff;}
+.demo-play{flex:none;width:58px;height:58px;border-radius:50%;border:0;cursor:pointer;background:var(--purple);display:flex;align-items:center;justify-content:center;transition:background .2s, transform .2s;box-shadow:0 8px 22px rgba(79,77,202,.4);}
+.demo-play:hover{background:var(--purple-deep);transform:scale(1.05);}
+.demo-play svg{width:24px;height:24px;fill:#fff;}
+.demo-meta{flex:1;min-width:0;}
+.demo-meta .t1{font-weight:600;color:var(--navy);font-size:16px;}
+.demo-meta .t2{font-size:13.5px;color:var(--gray);}
+.demo-progress{height:6px;border-radius:999px;background:#ECECF6;overflow:hidden;margin-top:10px;}
+.demo-progress__bar{height:100%;width:0;background:var(--purple);transition:width .15s linear;}
+.demo-time{font-family:var(--font-mono);font-size:12px;color:var(--gray);flex:none;}
+.demo-body{display:grid;grid-template-columns:1.25fr .9fr;gap:0;}
+.transcript{padding:26px;max-height:430px;overflow-y:auto;border-right:1px solid var(--line);}
+.transcript__hint{color:var(--gray);font-size:14px;text-align:center;padding:40px 10px;}
+.bubble{max-width:88%;margin-bottom:14px;padding:13px 16px;border-radius:16px;font-size:14.5px;line-height:1.5;opacity:0;transform:translateY(10px);transition:opacity .4s ease, transform .4s ease;}
+.bubble.show{opacity:1;transform:none;}
+.bubble .who{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;opacity:.7;}
+.bubble--rec{background:#F1F1F8;color:var(--ink);border-bottom-left-radius:5px;}
+.bubble--rec .who{color:var(--gray);}
+.bubble--call{background:var(--purple);color:#fff;margin-left:auto;border-bottom-right-radius:5px;}
+.bubble--call .who{color:#D8D7FB;}
+.bubble.active{box-shadow:0 0 0 3px rgba(79,77,202,.18);}
+.lead-panel{padding:26px;background:#FAFAFE;}
+.lead-panel__label{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:16px;}
+.lead-rec{border:1px solid var(--line);border-radius:16px;background:#fff;padding:22px;box-shadow:var(--shadow-sm);}
+.cd-name{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--navy);margin-bottom:20px;}
+.cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;margin-bottom:16px;}
+.cd-grid .lead-row{margin-bottom:0;}
+.cd-dot{width:7px;height:7px;border-radius:50%;background:#2BB673;display:inline-block;margin-right:7px;vertical-align:middle;}
+.lead-row{margin-bottom:16px;opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .5s ease;}
+.lead-row.show{opacity:1;transform:none;}
+.lead-row .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:3px;}
+.lead-row .v{font-size:16px;font-weight:600;color:var(--navy);}
+.lead-row .v.mono{font-family:var(--font-mono);font-weight:400;font-size:15px;}
+.lead-logged{display:flex;align-items:center;gap:9px;margin-top:6px;padding:11px 14px;border-radius:12px;background:#E9F8EF;color:#127A3E;font-weight:600;font-size:14px;opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .5s ease;}
+.lead-logged.show{opacity:1;transform:none;}
+.lead-logged svg{width:18px;height:18px;flex:none;}
+audio{display:none;}
+
+/* ============================  CRM  ========================== */
+.crm-feature{display:grid;grid-template-columns:1fr 1.15fr;gap:50px;align-items:center;margin-top:60px;}
+.crm-feature__copy h3{font-size:clamp(26px,3.4vw,38px);margin-bottom:16px;}
+.crm-feature__copy p{color:var(--gray);font-size:17px;}
+.shot{position:relative;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow-md);overflow:hidden;background:#fff;}
+.shot__bar{display:flex;gap:7px;padding:11px 14px;background:#fff;border-bottom:1px solid var(--line);}
+.shot__bar span{width:11px;height:11px;border-radius:50%;background:#E2E2EE;}
+.shot__bar span:nth-child(1){background:#FF9F9F;}
+.shot__bar span:nth-child(2){background:#FFD58A;}
+.shot__bar span:nth-child(3){background:#A6E2B8;}
+.shot img{width:100%;display:block;}
+.crm-feature__media{position:relative;}
+.crm-inset{position:absolute;right:-22px;bottom:-30px;width:188px;border-radius:14px;box-shadow:var(--shadow-lg);border:1px solid var(--line);overflow:hidden;background:#fff;}
+.crm-inset img{width:100%;}
+.crm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:70px;}
+.crm-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s, box-shadow .25s;}
+.crm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.crm-card__img{height:158px;overflow:hidden;border-bottom:1px solid var(--line);background:#F3F3FA;}
+.crm-card__img img{width:100%;height:100%;object-fit:cover;object-position:top left;}
+.crm-card__body{padding:22px 22px 26px;}
+.crm-card__body h4{font-family:var(--font-display);font-size:18.5px;color:var(--navy);margin:0 0 8px;}
+.crm-card__body p{color:var(--gray);font-size:14.5px;}
+
+/* =======================  INTEGRATIONS  ====================== */
+.intg-head{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:end;}
+.intg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:54px;}
+.intg-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow-sm);transition:transform .25s, box-shadow .25s, border-color .25s;}
+.intg-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:#D9D8EF;}
+.intg-card__ic{width:46px;height:46px;border-radius:12px;background:#ECECFB;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.intg-card__ic svg{width:24px;height:24px;stroke:var(--purple);fill:none;}
+.intg-card h4{font-family:var(--font-display);font-size:18px;color:var(--navy);margin:0 0 7px;}
+.intg-card p{color:var(--gray);font-size:14.5px;}
+.intg-tag{position:absolute;top:20px;right:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;}
+.intg-tag--in{background:#E9F8EF;color:#127A3E;}
+.intg-tag--hook{background:#EFEFFB;color:var(--purple);}
+
+/* ==========================  BENEFITS  ======================= */
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;}
+.benefit{padding:8px 6px;}
+.benefit__icon{width:46px;height:46px;border-radius:12px;background:rgba(139,137,240,.16);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.benefit__icon svg{width:24px;height:24px;stroke:var(--purple-soft);}
+.benefit h3{font-size:19px;color:#fff;margin-bottom:8px;}
+.benefit p{color:#BCB9E6;font-size:15px;}
+
+/* ============================  FORM  ========================= */
+.cta-wrap{max-width:560px;margin:0 auto;text-align:center;}
+.cta-wrap h2{font-size:clamp(30px,4.4vw,46px);margin-bottom:16px;}
+.form-card{margin-top:38px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-md);padding:34px;text-align:left;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:7px;}
+.field label .opt{color:var(--gray);font-weight:400;}
+.field input{width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);border:1.5px solid var(--line);border-radius:12px;background:#FAFAFE;transition:border-color .2s, background .2s;}
+.field input:focus{outline:none;border-color:var(--purple);background:#fff;}
+.form-card .btn{width:100%;margin-top:6px;}
+.form-note{text-align:center;font-size:13px;color:var(--gray);margin-top:16px;}
+.form-success{display:none;text-align:center;padding:30px 10px;}
+.form-success.show{display:block;}
+.form-success .check{width:60px;height:60px;border-radius:50%;background:#E9F8EF;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.form-success .check svg{width:30px;height:30px;stroke:#127A3E;}
+.form-success h3{font-size:24px;margin-bottom:8px;}
+.form-success p{color:var(--gray);}
+
+/* ===========================  FOOTER  ======================== */
+footer{background:var(--navy-ink);color:#C9C7EC;padding:64px 0 40px;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;}
+.footer-logo{height:36px;margin-bottom:14px;}
+.footer-tag{font-size:14px;color:#9C99CE;}
+.footer-bottom{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#8784BC;}
+
+/* ===================  SCROLL-REVEAL ANIMATION  ================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+.reveal[data-d="1"]{transition-delay:.08s;}
+.reveal[data-d="2"]{transition-delay:.16s;}
+.reveal[data-d="3"]{transition-delay:.24s;}
+
+/* ==========================  RESPONSIVE  ===================== */
+@media (max-width:900px){
+  .section{padding:80px 0;}
+  .problem-grid,.steps,.crm-grid,.benefits,.intg-grid{grid-template-columns:1fr;}
+  .demo-body{grid-template-columns:1fr;}
+  .transcript{border-right:0;border-bottom:1px solid var(--line);max-height:340px;}
+  .crm-feature{grid-template-columns:1fr;gap:34px;}
+  .crm-inset{width:140px;right:-8px;bottom:-18px;}
+  .intg-head{grid-template-columns:1fr;gap:20px;align-items:start;}
+  .thesis .wrap{grid-template-columns:1fr;gap:14px;}
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px;}
+  .form-card{padding:24px;}
+  .crm-inset{display:none;}
+  .hero__btns .btn{width:100%;}
+}
+
+/* Respect users who prefer no motion */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  *{animation:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- =================================================================
+     HEADER
+     ================================================================= -->
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a href="#top" aria-label="Clarity home">
+      <img class="nav__logo nav__logo--light" src="assets/clarity-logo-reverse.svg" alt="Clarity" />
+      <img class="nav__logo nav__logo--dark" src="assets/clarity-logo-primary.svg" alt="Clarity" />
+    </a>
+    <!-- LOG-IN BUTTON: left off for now.
+         To add it later, uncomment the next line:
+    <a class="nav__cta" href="https://clarity.vaala.io">Log in</a>
+    -->
+    <a class="nav__cta" href="#book">Book a demo</a>
+  </div>
+</header>
+
+<!-- =================================================================
+     HERO — 3D sound field  (edit headline + subhead text here)
+     ================================================================= -->
+<section class="hero" id="top">
+  <canvas id="scene"></canvas>
+  <div class="hero__fallback"></div>
+  <div class="hero__veil"></div>
+
+  <div class="hero__inner">
+    <span class="hero__badge"><span class="dot"></span> AI receptionist · answers when you can't</span>
+    <h1>Never lose another customer to a <span class="accent">missed call</span>.</h1>
+    <p class="hero__sub">Clarity answers the calls you can't — has a real, human-sounding conversation, captures the lead, and drops it into your inbox and CRM.</p>
+    <div class="hero__btns">
+      <a class="btn btn--primary" href="#book">Book a demo</a>
+      <a class="btn btn--ghost-dark" href="#demo">▸ Hear it work</a>
+    </div>
+  </div>
+</section>
+
+<!-- thesis strip: ties the 3D sound visual to the message -->
+<div class="thesis">
+  <div class="wrap">
+    <div class="tlabel">// sound &rarr; clarity</div>
+    <p>Every missed call is just <b>noise</b> slipping away. Clarity turns it into a <b>name, a number, and a booked job</b>.</p>
+  </div>
+</div>
+
+<!-- =================================================================
+     THE PROBLEM
+     ================================================================= -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">The problem</span>
+      <h2 style="font-size:clamp(28px,4vw,44px);max-width:16ch;">A missed call isn't a missed call. It's a lost customer.</h2>
+      <p class="lead" style="margin-top:18px;">People don't leave voicemails anymore. When you don't pick up, they call the next name on the list — and that job is gone before you even knew they rang.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="scenario reveal" data-d="1">
+        <span class="tag">// you're on a job</span>
+        <h3>Hands full</h3>
+        <p>Phone's in the truck, you're up a ladder. It rings out and you never even see it.</p>
+      </div>
+      <div class="scenario reveal" data-d="2">
+        <span class="tag">// after hours</span>
+        <h3>They call at 8pm</h3>
+        <p>You're closed. They're not waiting until morning — they're calling someone who picks up.</p>
+      </div>
+      <div class="scenario reveal" data-d="3">
+        <span class="tag">// line's busy</span>
+        <h3>Already on a call</h3>
+        <p>You can only talk to one person at a time. The second caller hangs up and dials a competitor.</p>
+      </div>
+    </div>
+    <p class="cost-line reveal">Each one of those was worth <b>$100 to $1,000+</b>. Clarity makes sure you never miss one again.</p>
+  </div>
+</section>
+
+<!-- =================================================================
+     HOW IT WORKS
+     ================================================================= -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">How it works</span>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Up and running in three steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal" data-d="1">
+        <span class="step__num">STEP 01</span>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        </div>
+        <h3>Forward your calls</h3>
+        <p>Keep your existing number. Send missed and after-hours calls to Clarity in a couple of clicks. Nothing else to install.</p>
+      </div>
+      <div class="step reveal" data-d="2">
+        <span class="step__num">STEP 02</span>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </div>
+        <h3>Clarity answers</h3>
+        <p>A natural, human-sounding AI picks up, has a real conversation, and finds out exactly what the caller needs.</p>
+      </div>
+      <div class="step reveal" data-d="3">
+        <span class="step__num">STEP 03</span>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2Z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3>You get the lead</h3>
+        <p>Name, number, and reason captured — texted and emailed to you instantly, and saved in your CRM ready to follow up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================
+     THE DEMO  (synced transcript + captured-lead card)
+     -----------------------------------------------------------------
+     To use YOUR OWN call recording: drop your audio file in the
+     /assets folder named  demo-call.mp3  — the player picks it up
+     automatically. To change the words or timing, edit the
+     TRANSCRIPT list in the <script> at the bottom of this file.
+     ================================================================= -->
+<section class="section section--soft" id="demo">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">See it happen</span>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Watch a real lead get captured.</h2>
+      <p class="lead" style="margin:18px auto 0;">Press play. Listen to the call, read along, and watch the lead build itself on the right — exactly what lands in your CRM.</p>
+    </div>
+
+    <div class="demo-card reveal">
+      <div class="demo-top">
+        <button class="demo-play" id="demoPlay" aria-label="Play sample call">
+          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <div class="demo-meta">
+          <div class="t1">Sample call · Summit Home Services</div>
+          <div class="t2">Incoming call · water heater leak</div>
+          <div class="demo-progress"><div class="demo-progress__bar" id="demoBar"></div></div>
+        </div>
+        <div class="demo-time" id="demoTime">0:00</div>
+      </div>
+
+      <div class="demo-body">
+        <div class="transcript" id="transcript">
+          <p class="transcript__hint" id="transcriptHint">Press play to hear the conversation and watch the transcript appear.</p>
+        </div>
+        <div class="lead-panel">
+          <div class="lead-panel__label">// Call detail</div>
+          <div class="lead-rec">
+            <div class="cd-name" id="ldName">Incoming call…</div>
+            <div class="cd-grid">
+              <div class="lead-row" data-field="phone"><div class="k">Phone</div><div class="v mono" id="ldPhone">—</div></div>
+              <div class="lead-row" data-field="status"><div class="k">Status</div><div class="v" id="ldStatus">—</div></div>
+              <div class="lead-row" data-field="email"><div class="k">Email</div><div class="v mono" id="ldEmail" style="font-size:13px;word-break:break-all;">—</div></div>
+              <div class="lead-row" data-field="turns"><div class="k">Turns</div><div class="v" id="ldTurns">—</div></div>
+            </div>
+            <div class="lead-row" data-field="reason"><div class="k">Reason for calling</div><div class="v" id="ldReason" style="font-weight:500;font-size:15px;">—</div></div>
+            <div class="cd-grid">
+              <div class="lead-row" data-field="received"><div class="k">Received</div><div class="v" id="ldReceived" style="font-weight:500;font-size:14px;">—</div></div>
+              <div class="lead-row" data-field="notified"><div class="k">Notified</div><div class="v" id="ldNotified" style="font-weight:500;font-size:14px;">—</div></div>
+            </div>
+            <div class="lead-logged" id="ldLogged">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#127A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Logged to CRM + emailed to you
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Your recording goes here. Until you add assets/demo-call.mp3,
+         the demo still runs on a built-in timer so it works right away. -->
+    <audio id="demoAudio" src="assets/demo-call.mp3" preload="none"></audio>
+  </div>
+</section>
+
+<!-- =================================================================
+     IT'S ALSO A FULL CRM
+     ================================================================= -->
+<section class="section" id="crm">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">Wait — there's more</span>
+      <h2 style="font-size:clamp(30px,4.4vw,48px);max-width:18ch;margin:0 auto;">It's not just a phone bot. It's your whole business, organized.</h2>
+      <p class="lead" style="margin:18px auto 0;">Every call Clarity answers becomes a contact, a job, and a number on your dashboard. Here's what's waiting inside.</p>
+    </div>
+
+    <!-- Featured: Calls + transcript inset -->
+    <div class="crm-feature reveal">
+      <div class="crm-feature__copy">
+        <h3>Every call, captured and searchable</h3>
+        <p>See who called, why, and exactly what was said — full transcripts and status on every conversation, so nothing slips through the cracks.</p>
+      </div>
+      <div class="crm-feature__media">
+        <div class="shot">
+          <div class="shot__bar"><span></span><span></span><span></span></div>
+          <img src="assets/screenshot-calls.jpg" alt="Clarity calls log showing captured calls with caller, reason, and status" loading="lazy" />
+        </div>
+        <div class="crm-inset">
+          <img src="assets/screenshot-call-detail.jpg" alt="A single call detail with full transcript" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid of the rest -->
+    <div class="crm-grid">
+      <div class="crm-card reveal" data-d="1">
+        <div class="crm-card__img"><img src="assets/screenshot-contacts.jpg" alt="Contacts list" loading="lazy" /></div>
+        <div class="crm-card__body"><h4>Every caller becomes a contact</h4><p>Names, numbers, and the reason they called — organized automatically. Zero data entry.</p></div>
+      </div>
+      <div class="crm-card reveal" data-d="2">
+        <div class="crm-card__img"><img src="assets/screenshot-jobs.jpg" alt="Jobs pipeline" loading="lazy" /></div>
+        <div class="crm-card__body"><h4>Turn calls into booked work</h4><p>Track every job from new request to invoiced — type, status, address, and estimate in one place.</p></div>
+      </div>
+      <div class="crm-card reveal" data-d="3">
+        <div class="crm-card__img"><img src="assets/screenshot-reports.jpg" alt="Reports dashboard" loading="lazy" /></div>
+        <div class="crm-card__body"><h4>See the whole picture</h4><p>Leads captured, calls over time, jobs by type and status — your business at a glance.</p></div>
+      </div>
+      <div class="crm-card reveal" data-d="1">
+        <div class="crm-card__img"><img src="assets/screenshot-automations.jpg" alt="Automations" loading="lazy" /></div>
+        <div class="crm-card__body"><h4>Put busywork on autopilot</h4><p>Auto-tag, follow up, and notify your team when things happen — no manual chasing.</p></div>
+      </div>
+      <div class="crm-card reveal" data-d="2">
+        <div class="crm-card__img"><img src="assets/screenshot-whitelabel.jpg" alt="White-label settings" loading="lazy" /></div>
+        <div class="crm-card__body"><h4>Make it yours</h4><p>Put your own logo and colors on the entire portal. Your customers see your brand, not ours.</p></div>
+      </div>
+      <div class="crm-card reveal" data-d="3" style="display:flex;align-items:center;justify-content:center;background:var(--purple);border-color:var(--purple);">
+        <div class="crm-card__body" style="text-align:center;">
+          <h4 style="color:#fff;font-size:21px;">…and it all starts with one answered call.</h4>
+          <p style="color:#E0DFFA;margin-top:10px;">Contacts, jobs, fields, team, reports — included.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================
+     INTEGRATIONS  (general framing — connects via webhooks)
+     ================================================================= -->
+<section class="section section--soft" id="integrations">
+  <div class="wrap">
+    <div class="intg-head reveal">
+      <div>
+        <span class="eyebrow">Fits your stack</span>
+        <h2 style="font-size:clamp(28px,4vw,44px);max-width:16ch;">Works with the tools you already run on.</h2>
+      </div>
+      <div>
+        <p class="lead">Clarity doesn't ask you to start over. Every call and captured lead can flow out to the tools you already use, and Clarity can pull data back in — connect what you need, skip what you don't.</p>
+      </div>
+    </div>
+
+    <div class="intg-grid">
+      <div class="intg-card reveal" data-d="1">
+        <span class="intg-tag intg-tag--in">Included</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+        <h4>Keep your number</h4>
+        <p>No new phone, no new hardware. Forward the calls you miss and Clarity picks up — that's it.</p>
+      </div>
+      <div class="intg-card reveal" data-d="2">
+        <span class="intg-tag intg-tag--in">Included</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+        <h4>Your CRM, built in</h4>
+        <p>Leads land in Clarity's own CRM automatically — contacts, jobs, and reports, no setup.</p>
+      </div>
+      <div class="intg-card reveal" data-d="3">
+        <span class="intg-tag intg-tag--in">Included</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+        <h4>Instant lead alerts</h4>
+        <p>The moment a call is captured, Clarity emails and texts you the lead so you can follow up fast.</p>
+      </div>
+      <div class="intg-card reveal" data-d="1">
+        <span class="intg-tag intg-tag--hook">Connect</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <h4>Calendars &amp; scheduling</h4>
+        <p>Send captured jobs into the scheduling tool you already use, so booking happens where you work.</p>
+      </div>
+      <div class="intg-card reveal" data-d="2">
+        <span class="intg-tag intg-tag--hook">Connect</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11a4 4 0 0 1 0 8H9"/><path d="m8 4-3 3 3 3"/><path d="M20 17H9a4 4 0 0 1 0-8h6"/><path d="m16 20 3-3-3-3"/></svg></div>
+        <h4>Two-way data flow</h4>
+        <p>Inbound and outbound webhooks let Clarity push leads out and pull info in — both directions.</p>
+      </div>
+      <div class="intg-card reveal" data-d="3">
+        <span class="intg-tag intg-tag--hook">Connect</span>
+        <div class="intg-card__ic"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h4>Thousands of apps</h4>
+        <p>Hook Clarity up to almost anything — directly, or through automation tools like Zapier and Make.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================
+     WHY CLARITY (benefits) — dark section
+     ================================================================= -->
+<section class="section section--dark">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Why Clarity</span>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Everything a missed call should have been.</h2>
+    </div>
+    <div class="benefits">
+      <div class="benefit reveal" data-d="1">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3>Never miss a lead</h3>
+        <p>Busy, closed, or asleep — every call gets answered and captured.</p>
+      </div>
+      <div class="benefit reveal" data-d="2">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
+        <h3>Sounds genuinely human</h3>
+        <p>Premium, natural voices. Pick the one that fits your business.</p>
+      </div>
+      <div class="benefit reveal" data-d="3">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <h3>Leads organize themselves</h3>
+        <p>Every call lands in a tidy CRM — contacts, jobs, and reports, done.</p>
+      </div>
+      <div class="benefit reveal" data-d="1">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Your brand, not ours</h3>
+        <p>Full white-labeling — your logo and colors across the whole portal.</p>
+      </div>
+      <div class="benefit reveal" data-d="2">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h3>Works around the clock</h3>
+        <p>Nights, weekends, holidays — Clarity is always on the desk.</p>
+      </div>
+      <div class="benefit reveal" data-d="3">
+        <div class="benefit__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Set up in minutes</h3>
+        <p>Forward your calls, tell it about your business, and you're live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================
+     LEAD FORM  (the main conversion point)
+     ================================================================= -->
+<section class="section section--soft" id="book">
+  <div class="wrap">
+    <div class="cta-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Get started</span>
+        <h2>See Clarity answer your calls.</h2>
+        <p class="lead" style="margin:14px auto 0;">Book a quick demo. Drop your email and we'll reach out to set it up — no pressure, no pitch.</p>
+      </div>
+
+      <div class="form-card reveal">
+        <!-- ===========================================================
+             THE LEAD FORM
+             Right now this sends submissions to your email via Web3Forms.
+             • To change WHERE leads go later (e.g. into your Clarity CRM),
+               change the form's endpoint — see the script below and the
+               README. The single place to repoint is marked "LEAD DESTINATION".
+             =========================================================== -->
+        <form id="leadForm">
+          <!-- Web3Forms access key. Replace the placeholder with the key
+               you get from web3forms.com (the README walks you through it). -->
+          <input type="hidden" name="access_key" value="9f0e9bc8-bf78-4689-8264-4e32081a55f4" />
+          <input type="hidden" name="subject" value="New Clarity demo request from vaala.io" />
+          <input type="hidden" name="from_name" value="Clarity website" />
+          <!-- honeypot: hidden anti-spam field, leave as-is -->
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
+
+          <div class="field">
+            <label for="name">Name <span class="opt">(optional)</span></label>
+            <input type="text" id="name" name="name" placeholder="Jordan Smith" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="opt" style="color:var(--purple);">(required)</span></label>
+            <input type="email" id="email" name="email" placeholder="you@yourbusiness.com" required autocomplete="email" />
+          </div>
+          <button type="submit" class="btn btn--primary" id="leadSubmit">Book my demo</button>
+          <p class="form-note">We'll only use this to reach out about your demo.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>You're in.</h3>
+          <p>Thanks — we'll be in touch shortly to set up your demo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================
+     FOOTER
+     ================================================================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <img class="footer-logo" src="assets/clarity-logo-reverse.svg" alt="Clarity" />
+        <div class="footer-tag">A Vaala product · the AI receptionist for local business.</div>
+      </div>
+      <!-- Footer links / contact left off for now. Drop them in here later. -->
+      <a class="btn btn--primary" href="#book">Book a demo</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Vaala. All rights reserved.</span>
+      <span>vaala.io</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 3D library for the hero (loads in the visitor's browser; nothing to install) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ================================================================
+   1) HERO — 3D sound field (Three.js point grid, purple-branded)
+   A plane of glowing points ripples like a 3D audio waveform.
+   Mouse moves the camera; scrolling calms the motion. Falls back to
+   a soft gradient if WebGL isn't available, and to a single still
+   frame for visitors who prefer reduced motion.
+   ================================================================ */
+(function(){
+  const heroEl = document.getElementById('top');
+  const canvas = document.getElementById('scene');
+  if(!heroEl || !canvas) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(!window.THREE){ heroEl.classList.add('nowebgl'); return; }
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false}); }
+  catch(e){ heroEl.classList.add('nowebgl'); return; }
+
+  const ink = 0x16143D;                 // deep navy background
+  renderer.setClearColor(ink, 1);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(ink, 0.0095);
+
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+  const camBase = {x:0, y:34, z:78};
+  camera.position.set(camBase.x, camBase.y, camBase.z);
+  camera.lookAt(0, -2, -10);
+
+  // grid of points — fewer on phones for performance
+  const SEG = (innerWidth < 760) ? 64 : 104;
+  const SIZE = 200, half = SIZE/2, step = SIZE/SEG;
+  const count = (SEG+1)*(SEG+1);
+  const positions = new Float32Array(count*3);
+  const colors = new Float32Array(count*3);
+  const base = [];
+  let p = 0;
+  for(let i=0;i<=SEG;i++){
+    for(let j=0;j<=SEG;j++){
+      const x=-half+i*step, z=-half+j*step, d=Math.sqrt(x*x+z*z);
+      positions[p*3]=x; positions[p*3+1]=0; positions[p*3+2]=z;
+      base.push({x,z,d}); p++;
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+
+  // soft round glow sprite for each point
+  function dot(){
+    const c=document.createElement('canvas'); c.width=c.height=64;
+    const g=c.getContext('2d'); const grd=g.createRadialGradient(32,32,0,32,32,32);
+    grd.addColorStop(0,'rgba(255,255,255,1)'); grd.addColorStop(.4,'rgba(255,255,255,.7)'); grd.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=grd; g.beginPath(); g.arc(32,32,32,0,7); g.fill();
+    const t=new THREE.Texture(c); t.needsUpdate=true; return t;
+  }
+  const mat = new THREE.PointsMaterial({size:1.5, map:dot(), vertexColors:true, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, sizeAttenuation:true});
+  const pts = new THREE.Points(geo, mat);
+  pts.position.y = -18;          // push the wave terrain lower in the frame
+  scene.add(pts);
+
+  // colors by height: low=deep indigo, mid=brand purple, crest=bright lavender
+  const cLow=new THREE.Color(0x312F7A), cMid=new THREE.Color(0x6E6CE0), cHi=new THREE.Color(0xC7C5FF);
+  const tmp=new THREE.Color();
+
+  function resize(){
+    const w=heroEl.clientWidth, h=heroEl.clientHeight;
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+  }
+  resize(); addEventListener('resize', resize);
+
+  // scroll calm (full motion at top -> settles as you scroll past hero)
+  let calm=1;
+  function onScroll(){ const prog=Math.min(1,Math.max(0,scrollY/(heroEl.clientHeight*0.9))); calm=1-prog*0.82; }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mouse parallax
+  let mx=0,my=0,tmx=0,tmy=0;
+  addEventListener('pointermove', e=>{ tmx=(e.clientX/innerWidth-.5); tmy=(e.clientY/innerHeight-.5); }, {passive:true});
+
+  const posAttr=geo.attributes.position, colAttr=geo.attributes.color;
+  function field(x,z,t){
+    return Math.sin(x*0.045+t*1.1)*4.2 + Math.sin(z*0.06+t*0.9)*3.4 + Math.sin((x+z)*0.035+t*0.7)*3.0 + Math.sin((x-z)*0.05+t*1.4)*2.2;
+  }
+  function paint(t, amp){
+    for(let k=0;k<count;k++){
+      const b=base[k], edgeFade=Math.max(0,1-b.d/half);
+      const y=field(b.x,b.z,t)*amp*(0.35+edgeFade*0.9);
+      posAttr.array[k*3+1]=y;
+      const h=Math.min(1,Math.max(0,(y+5)/12));
+      if(h<0.7){ tmp.copy(cLow).lerp(cMid,h/0.7); } else { tmp.copy(cMid).lerp(cHi,(h-0.7)/0.3); }
+      const fade=0.35+edgeFade*0.65;
+      colAttr.array[k*3]=tmp.r*fade; colAttr.array[k*3+1]=tmp.g*fade; colAttr.array[k*3+2]=tmp.b*fade;
+    }
+    posAttr.needsUpdate=true; colAttr.needsUpdate=true;
+  }
+
+  let running=true, t=0;
+  function frame(){
+    if(!running) return;
+    requestAnimationFrame(frame);
+    t+=0.0125;
+    mx+=(tmx-mx)*0.05; my+=(tmy-my)*0.05;
+    camera.position.x=camBase.x+mx*16; camera.position.y=camBase.y-my*8;
+    camera.lookAt(0,-2,-10);
+    paint(t, 0.45+calm*0.9);
+    renderer.render(scene,camera);
+  }
+
+  if(reduce){
+    paint(0.6, 1.0); renderer.render(scene,camera);   // one still frame
+  } else {
+    const vis=new IntersectionObserver((es)=>es.forEach(e=>{
+      if(e.isIntersecting && !running){ running=true; frame(); }
+      else if(!e.isIntersecting){ running=false; }
+    }), {threshold:0});
+    vis.observe(heroEl);
+    frame();
+  }
+})();
+
+
+/* ================================================================
+   2) THE DEMO PLAYER  (synced transcript + captured lead)
+   ----------------------------------------------------------------
+   >>> EDIT THE CONVERSATION HERE <<<
+   Each line = { t: secondsIntoCall, who: 'rec' | 'call', text: '...' }
+   'rec'  = the AI receptionist (gray bubble, left)
+   'call' = the caller (purple bubble, right)
+   If you add assets/demo-call.mp3, the transcript syncs to the real
+   audio automatically.
+   ================================================================ */
+const TRANSCRIPT = [
+  { t:0.5,  who:'rec',  text:"Thanks for calling Summit Home Services, this is the front desk. How can I help you today?" },
+  { t:6,    who:'call', text:"There's water all around my water heater in the garage. It looks like it's leaking from the bottom." },
+  { t:12,   who:'rec',  text:"Okay, let's get that handled before it gets worse. If you can safely reach the shutoff valve on the cold-water line above the heater, turning it clockwise will stop the flow. Can you do that?" },
+  { t:20,   who:'call', text:"Yeah, I think I just turned it off." },
+  { t:23.5, who:'rec',  text:"Great, that'll help a lot. I'll get a technician scheduled. May I have your name?" },
+  { t:28,   who:'call', text:"Sure, it's Marcus Bell." },
+  { t:30.5, who:'rec',  text:"Thanks, Marcus. And the best number to reach you at?" },
+  { t:34,   who:'call', text:"This one's good — 919-668-1001." },
+  { t:38,   who:'rec',  text:"Perfect. And an email for your appointment confirmation?" },
+  { t:42,   who:'call', text:"Sure — marcus.bell84@gmail.com." },
+  { t:46,   who:'rec',  text:"Got it. I've logged a leaking water heater at your home with the shutoff already closed. A technician will reach out shortly to schedule. Anything else?" },
+  { t:53,   who:'call', text:"No, that's everything. Thank you." },
+  { t:55.5, who:'rec',  text:"You're welcome — we'll be in touch soon. Take care." }
+];
+/* What gets captured, and when (seconds). The meta fields finalize when
+   the call completes — exactly like the Call Detail screen in the app. */
+const LEAD = {
+  reason:   { at:6,  value:"Water heater leaking from the bottom" },
+  name:     { at:28, value:"Marcus Bell" },
+  phone:    { at:34, value:"+19196681001" },
+  email:    { at:42, value:"marcus.bell84@gmail.com" },
+  status:   { at:57, value:"Completed" },
+  turns:    { at:57, value:String(TRANSCRIPT.length) },
+  received: { at:57, value:"Today, 12:49 PM" },
+  notified: { at:57, value:"Today, 12:52 PM" },
+  logged:   { at:58 }
+};
+const SIM_DURATION = 59;   // seconds the demo runs if no audio file yet
+
+(function(){
+  const audio=document.getElementById('demoAudio');
+  const playBtn=document.getElementById('demoPlay');
+  const playIcon=document.getElementById('playIcon');
+  const pauseIcon=document.getElementById('pauseIcon');
+  const bar=document.getElementById('demoBar');
+  const timeEl=document.getElementById('demoTime');
+  const tEl=document.getElementById('transcript');
+  const hint=document.getElementById('transcriptHint');
+  let audioOK=false, playing=false, simStart=0, raf=null, shown=new Set();
+
+  audio.addEventListener('canplay', ()=>{ audioOK=true; });
+  audio.addEventListener('error', ()=>{ audioOK=false; });
+
+  function duration(){ return (audioOK && audio.duration) ? audio.duration : SIM_DURATION; }
+  function now(){
+    if(audioOK && !audio.paused) return audio.currentTime;
+    if(audioOK && audio.currentTime>0) return audio.currentTime;
+    return (performance.now()-simStart)/1000;
+  }
+  function fmt(s){ s=Math.max(0,Math.floor(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+
+  const RESET_FIELDS=[['phone','ldPhone'],['status','ldStatus'],['email','ldEmail'],['turns','ldTurns'],['reason','ldReason'],['received','ldReceived'],['notified','ldNotified']];
+  function reset(){
+    shown.clear();
+    tEl.querySelectorAll('.bubble').forEach(b=>b.remove());
+    if(hint) hint.style.display='block';
+    document.getElementById('ldName').textContent='Incoming call…';
+    RESET_FIELDS.forEach(function(pair){
+      const row=document.querySelector('.lead-row[data-field="'+pair[0]+'"]');
+      if(row) row.classList.remove('show');
+      document.getElementById(pair[1]).textContent='—';
+    });
+    document.getElementById('ldLogged').classList.remove('show');
+    bar.style.width='0%'; timeEl.textContent='0:00';
+  }
+  function addBubble(line){
+    if(hint) hint.style.display='none';
+    const div=document.createElement('div');
+    div.className='bubble '+(line.who==='call'?'bubble--call':'bubble--rec');
+    div.innerHTML='<span class="who">'+(line.who==='call'?'Caller':'Receptionist')+'</span>'+line.text;
+    tEl.appendChild(div);
+    requestAnimationFrame(()=>div.classList.add('show'));
+    tEl.querySelectorAll('.bubble').forEach(b=>b.classList.remove('active'));
+    div.classList.add('active');
+    tEl.scrollTop=tEl.scrollHeight;
+  }
+  function revealRow(field,id,val,isHTML){
+    const row=document.querySelector('.lead-row[data-field="'+field+'"]');
+    const el=document.getElementById(id);
+    if(isHTML) el.innerHTML=val; else el.textContent=val;
+    if(row) row.classList.add('show');
+  }
+  function tick(){
+    const cur=now(), dur=duration();
+    bar.style.width=Math.min(100,(cur/dur)*100)+'%';
+    timeEl.textContent=fmt(cur);
+    TRANSCRIPT.forEach((line,i)=>{ if(cur>=line.t && !shown.has(i)){ shown.add(i); addBubble(line); } });
+    if(cur>=LEAD.reason.at) revealRow('reason','ldReason',LEAD.reason.value);
+    if(cur>=LEAD.name.at)   document.getElementById('ldName').textContent=LEAD.name.value;
+    if(cur>=LEAD.phone.at)  revealRow('phone','ldPhone',LEAD.phone.value);
+    if(cur>=LEAD.email.at)  revealRow('email','ldEmail',LEAD.email.value);
+    if(cur>=LEAD.status.at){
+      revealRow('status','ldStatus','<span class="cd-dot"></span>Completed',true);
+      revealRow('turns','ldTurns',LEAD.turns.value);
+      revealRow('received','ldReceived',LEAD.received.value);
+      revealRow('notified','ldNotified',LEAD.notified.value);
+    }
+    if(cur>=LEAD.logged.at) document.getElementById('ldLogged').classList.add('show');
+    if(cur>=dur){ stop(true); return; }
+    raf=requestAnimationFrame(tick);
+  }
+  function start(){
+    reset(); playing=true;
+    playIcon.style.display='none'; pauseIcon.style.display='block';
+    simStart=performance.now();
+    if(audioOK){ audio.currentTime=0; audio.play().catch(()=>{}); }
+    raf=requestAnimationFrame(tick);
+  }
+  function stop(){
+    playing=false;
+    playIcon.style.display='block'; pauseIcon.style.display='none';
+    if(audioOK) audio.pause();
+    if(raf) cancelAnimationFrame(raf);
+  }
+  playBtn.addEventListener('click', ()=>{ playing ? stop() : start(); });
+})();
+
+
+/* ================================================================
+   3) LEAD FORM  ->  Web3Forms (sends to your email)
+   ----------------------------------------------------------------
+   LEAD DESTINATION: this fetch() posts to Web3Forms, which emails
+   you the lead. To send leads somewhere else later (e.g. your
+   Clarity CRM), change the URL on the fetch() line below.
+   ================================================================ */
+(function(){
+  const form=document.getElementById('leadForm');
+  const success=document.getElementById('formSuccess');
+  const btn=document.getElementById('leadSubmit');
+  if(!form) return;
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    btn.textContent='Sending…'; btn.disabled=true;
+    const data=new FormData(form);
+    try{
+      const res=await fetch('https://api.web3forms.com/submit', {   /* <-- LEAD DESTINATION */
+        method:'POST', headers:{'Accept':'application/json'}, body:data
+      });
+      const out=await res.json();
+      if(out.success){ form.style.display='none'; success.classList.add('show'); }
+      else { throw new Error(out.message||'Submit failed'); }
+    }catch(err){
+      btn.textContent='Book my demo'; btn.disabled=false;
+      alert("Something went wrong sending that. Please try again, or email us directly.");
+    }
+  });
+})();
+
+
+/* ================================================================
+   4) HEADER STATE + SCROLL REVEALS
+   ================================================================ */
+(function(){
+  const header=document.getElementById('siteHeader');
+  const onScroll=()=> header.classList.toggle('scrolled', (scrollY||0) > 20);
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
